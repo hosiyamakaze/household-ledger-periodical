@@ -1,3 +1,35 @@
-An Access database that creates periodic expense data for the household-ledger workbook and produces monthly totals that include those expenses.
+# monthly and annual
+- An Access database that creates periodic expense data for the household-ledger workbook and produces monthly totals that include those expenses.
+- “家計簿” is the kanji writing of “household ledger”.
 
-“家計簿” is the kanji writing of “household ledger”.
+## 家計簿 定期支出の事前入力(年次)・支出の月次集計
+### 年次処理(定期支出の事前入力)
+0. 家計簿.xlsxの定期支出雛型テープルに月払い・年払の支出を登録する
+- 月次は周期:M、定期日は各月の支払予定日の「日」を登録する
+- 年次は周期:Y、定期日は年度内の支払予定日の「月/日」を登録する 
+- 年次で支払回数が分かれるものは、月/日,月/日･･･を登録する
+1. 対象年を更新する
+- 対象年度をYYYYで入力する
+2. 家計簿支出予定 削除
+- 家計簿支出予定テーブルを削除する
+3. 定期支出雛型 削除
+- 定期支出雛型テーブルを削除する
+4. インポート
+- 家計簿.xlsxから定期支出シートを定期支出雛型テープルに追加インポートする
+5. 家計簿支出予定 追加
+- 対象年度の支出予定を家計簿支出予定テーブルに追加する
+- 外部データ→エクスポート→Excel<br>
+    家計簿支出予定.xlsxに出力し、その内容を家計簿.xlsxに挿入する
+
+### 月次処理(予定または実績)
+1. 家計簿 削除
+2. インポート
+- 外部データ→インポート→Excel で 家計簿.xlsxの家計簿シートを新しいテーブルに追加する。
+- フィールド名:Noをデータ型:整数型にする
+- インポート後、集計行がエラーとなるので、これを削除する
+3. 家計簿にYY,YM項目を追加する
+4. 家計簿のYY,YM項目を更新する
+5. 月次集計
+- 月次集計により検索クエリの結果が表示される<br>
+** 家計簿シートをインポートするタイミングによって、予定・実績の集計が出来る **
+
